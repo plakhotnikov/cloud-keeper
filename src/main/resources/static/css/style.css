@@ -1,0 +1,155 @@
+:root {
+    --bs-dropdown-link-hover-bg: black;
+    --bs-nav-link-font-size: 1.2rem;
+    --bs-light-rgb: 245, 245, 250;
+    --bs-list-group-item-padding-y: 0;
+    --bs-list-group-item-padding-x: 0;
+    --files-box-bg-color: rgb(245, 245, 250);
+    --left-pane-color: rgb(231, 231, 232);
+    --bs-border-radius: 15px;
+    --bs-breadcrumb-divider: '>';
+}
+
+
+/* Native containers */
+.container {
+    margin: 0 auto;
+}
+.container label {
+    font-size: 1.5rem;
+}
+.row div{
+    padding: 10px;
+}
+.row .file-act-btn {
+    padding: 2px;
+    margin: auto;
+}
+.nav {
+    font-size: 1.5rem;
+}
+.nav-link {
+    white-space: nowrap;
+}
+
+
+/* App logical zones*/
+.center-pane {
+    max-height: 90%;
+}
+.left-pane {
+    border-radius: 15px;
+    max-width: 200px;
+    min-width: 100px;
+    min-height: 500px;
+}
+.files-box {
+    border-radius: 15px;
+    padding: 0 20px;
+    min-height: 300px;
+    min-width: 300px;
+}
+.file a {
+    text-decoration: none;
+    color: black;
+}
+.dropzone-div {
+    padding: 20px 20px 10px !important;
+    min-width: 300px;
+    max-height: 400px;
+}
+.dropzone {
+    border-radius: 15px;
+    max-height: 400px;
+}
+.dz-message {
+    margin: 3em !important;
+}
+
+
+/* Form elements' styles*/
+.form-group label {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+    font-weight: lighter;
+}
+.form-group .btn {
+    padding: 5px 20px;
+    font-size: 1.5rem;
+    border-radius: 2rem;
+}
+.form-group {
+    padding-top: 0 !important;
+}
+input[type="search"] {
+    border-radius: 1rem;
+    max-width: 500px;
+}
+
+
+/* Buttons' styles*/
+.btn {
+    border-radius: 1rem;
+}
+.ref-btn {
+    padding: 30px;
+}
+.btn-big {
+    border-radius: 3rem !important;
+    /*margin: 0 3rem;*/
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+}
+.btn-huge {
+    border-radius: 3rem !important;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.5rem;
+}
+.btn-clear {
+    border-bottom-right-radius: 1rem !important;
+    border-top-right-radius: 1rem !important;
+    padding: 0 1rem;
+    font-size: 1.5rem;
+}
+.btn-link, .btn-link:hover, .btn-link:active {
+    padding: 0;
+    color: black;
+    text-decoration: none;
+}
+
+
+/* Lists' styles*/
+.list-group {
+    max-height: 300px;
+}
+.search-list-group {
+    max-height: 500px;
+}
+.list-group-item {
+    padding: 0 5px;
+}
+.list-group-item:hover {
+    background-color: rgb(226, 226, 226);
+    font-weight: bold;
+}
+.breadcrumb {
+    padding: 0;
+}
+
+
+/* Debug borders coloring */
+/*body {*/
+/*    border: dotted 2px black;*/
+/*}*/
+
+/*.container, .container-fluid {*/
+/*    border: solid 2px purple;*/
+/*}*/
+
+/*.row{*/
+/*    !*border: solid 1px red;*!*/
+/*}*/
+
+/*.files-box, .left-pane, .dropzone-div{*/
+/*    border: solid 1px green;*/
+/*}*/

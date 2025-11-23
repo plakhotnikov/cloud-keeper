@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/head :: head ('Home')}"></head>
+
+<body>
+
+<nav th:replace="~{common/nav :: top-bar}"></nav>
+<svg th:replace="~{common/icons :: description}"></svg>
+
+<div class="container-fluid">
+    <div class="row m-sm-3">
+        <div th:replace="~{common/nav :: left-pane}"></div>
+
+        <div class="col-8 main-box pt-0 pb-0">
+            <div class="files-box ps-4 ">
+                <div th:insert="~{common/nav :: breadcrumb}" class="row p-0 m-0"></div>
+                <div th:replace="~{common/file-lists :: main}"></div>
+            </div>
+            <div th:replace="~{common/dropzone :: #dz-tools}"></div>
+            <div th:replace="~{common/dropzone :: dropzone}"></div>
+        </div>
+    </div>
+</div>
+
+<div th:if="${errorMessage != null}" id="error-modal-trigger" class="d-none"
+     th:data-error-message="${errorMessage}"></div>
+
+<div th:replace="~{common/modals :: #mkdir-modal}"></div>
+<div th:replace="~{common/modals :: #rename-modal}"></div>
+<div th:replace="~{common/modals :: #success-modal}"></div>
+<div th:replace="~{common/modals :: #error-modal}"></div>
+<div th:replace="~{common/modals :: #confirm-modal}"></div>
+
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/dropzone.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/check-form-validity.js}"></script>
+</body>
+</html>

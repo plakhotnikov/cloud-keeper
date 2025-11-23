@@ -1,0 +1,28 @@
+# Configuration for clean MinioServiceTest
+spring:
+  config:
+    activate:
+      on-profile: "test & minio & !auth & !web"
+  liquibase:
+    enabled: false
+  data:
+    redis:
+      repositories:
+        enabled: false
+    jpa:
+      repositories:
+        enabled: false
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+    - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+    - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+    - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+    - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
+
+minio:
+  client:
+    endpoint: http://localhost:9000
+    user: test
+    password: testpass
+

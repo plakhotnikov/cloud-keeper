@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<div class="row pt-0 pb-0 container justify-content-center d-none" id="dz-tools">
+    <div class="col d-flex justify-content-center justify-content-md-end">
+        <button type="button" class="btn btn-primary btn-big" id="dz-upload-btn">
+            <i class="bi bi-arrow-bar-up"></i> Upload
+        </button>
+    </div>
+    <div class="col d-flex justify-content-center justify-content-md-start">
+        <button type="button" class="btn btn-danger btn-big" id="dz-clear-btn">
+            <i class="bi bi-trash"></i> Clear
+        </button>
+    </div>
+</div>
+
+
+<div th:fragment="dropzone" class="dropzone-div">
+    <form th:action="@{/files}" th:method="post" class="dropzone overflow-y-auto p-0" id="my-dropzone">
+        <input type="hidden" name="path" th:value="${path}">
+    </form>
+</div>
+
+
+</html>

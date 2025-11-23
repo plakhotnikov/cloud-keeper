@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/head :: head ('Error')}"></head>
+
+<body>
+
+<div class="container-fluid">
+    <div class="row m-sm-3 justify-content-center">
+        <div class="text-center col-12 col-sm-10 col-lg-8">
+            <span th:text="${errorMessage}" class="display-6">Error</span>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a th:href="@{/}" class="btn btn-primary btn-big" role="button">Return to home page</a>
+        </div>
+        <div class="d-flex justify-content-center">
+            <img src="https://thecatapi.com/api/images/get?format=src&type=gif" alt="*Funny cat gif*">
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

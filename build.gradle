@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.plakhotnikov'
+version = '0.0.1-SNAPSHOT'
+
+bootJar {
+    archiveFileName = "cloud-keeper.jar"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    minioVersion = "8.5.13"
+    testcontainersVersion = "1.20.3"
+    mapstructVersion = "1.5.5.Final"
+    mockitoVersion = "5.12.0"
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.session:spring-session-data-redis'
+    implementation "io.minio:minio:${minioVersion}"
+    implementation 'org.liquibase:liquibase-core'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor 'org.projectlombok:lombok', "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation "org.testcontainers:postgresql:${testcontainersVersion}"
+    testImplementation "org.testcontainers:minio:${testcontainersVersion}"
+    testImplementation "org.testcontainers:junit-jupiter:${testcontainersVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

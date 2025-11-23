@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<svg th:fragment="description" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    </symbol>
+        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+    <symbol id="file" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
+    </symbol>
+    <symbol id="folder" viewBox="0 3 40 40">
+        <path fill="#b6dcfe" d="M1.5 35.5L1.5 4.5 11.793 4.5 14.793 7.5 38.5 7.5 38.5 35.5z"/>
+        <path fill="#4788c7" d="M11.586,5l2.707,2.707L14.586,8H15h23v27H2V5H11.586 M12,4H1v32h38V7H15L12,4L12,4z"/>
+        <g>
+            <path fill="#dff0fe" d="M1.5 35.5L1.5 9.5 12.151 9.5 15.151 7.5 38.5 7.5 38.5 35.5z"/>
+            <path fill="#4788c7" d="M38,8v27H2V10h10h0.303l0.252-0.168L15.303,8H38 M39,7H15l-3,2H1v27h38V7L39,7z"/>
+        </g>
+    </symbol>
+</svg>
+
+
+<svg th:fragment="info" class="bi flex-shrink-0 me-2" width="24" height="24" role="img">
+    <use xlink:href="#info-fill"/>
+</svg>
+
+<svg th:fragment="success" class="bi flex-shrink-0 me-2" width="24" height="24" role="img">
+    <use xlink:href="#check-circle-fill"/>
+</svg>
+
+<svg th:fragment="error" class="bi flex-shrink-0 me-2" width="24" height="24" role="img">
+    <use xlink:href="#exclamation-triangle-fill"/>
+</svg>
+
+<svg th:fragment="folder" class="bi flex-shrink-0 me-2" width="28px" height="28px" role="img">
+    <use xlink:href="#folder"/>
+</svg>
+
+<svg th:fragment="file" class="bi flex-shrink-0 me-2" width="24" height="24" role="img">
+    <use xlink:href="#file"/>
+</svg>
+
+</html>

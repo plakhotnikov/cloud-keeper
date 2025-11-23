@@ -1,0 +1,94 @@
+spring:
+  application:
+    name: cloud-keeper
+    user-space-size: 500MB
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - optional:file:dev.env[.properties]
+  profiles:
+    active: dev
+    group:
+      dev:
+        - "minio"
+        - "auth"
+        - "web"
+      prod:
+        - "minio"
+        - "auth"
+        - "web"
+    default: dev
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  liquibase:
+    enabled: true
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+  session:
+    redis:
+      repository-type: default
+    timeout: 1800
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+server:
+  servlet:
+    context-path: /api/v1/
+  tomcat:
+    max-swallow-size: 200MB
+
+
+minio:
+  client:
+    endpoint: ${MINIO_ENDPOINT}
+    user: ${MINIO_ROOT_USER}
+    password: ${MINIO_ROOT_PASSWORD}
+  bucket-name: user-files
+
+
+validation:
+  patterns:
+    username: "[a-zA-Z0-9@_.]{4,50}"
+    password: "[a-zA-Z0-9@_.!#$%^&*]{4,50}"
+    objname: (?=.*\S)[\wа-яА-Я\!\-\*'\(\)\s]{1,40}
+    search: .*\S+.*
+  messages:
+    username: "Allowed letters, numbers and symbols @_., minimum 4 characters"
+    password: "Allowed latin letters, numbers and symbols @_.!#$%^&*, minimum 4 characters."
+    objname: "Allowed alphanumeric characters and symbols: !-_*'(). Max length is 40 (at least 1 non-whitespace character)."
+    search: "Search query must contain at least 1 non-whitespace character"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+
+prometheus:
+  user-password: ${PROMETHEUS_USER_PASSWORD}

@@ -1,0 +1,137 @@
+name: cloud-keeper
+
+
+services:
+  spring-app:
+    container_name: spring-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      PROMETHEUS_USER_PASSWORD: ${PROMETHEUS_USER_PASSWORD}
+      SPRING_PROFILES_ACTIVE: "prod"
+    networks:
+      - default
+      - monitoring
+    ports:
+      - "80:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+        restart: true
+      minio:
+        condition: service_healthy
+        restart: true
+      redis:
+        condition: service_healthy
+        restart: true
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://spring-app:8080/actuator/health" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      POSTGRES_DB: ${SPRING_DATASOURCE_DB}
+      PGUSER: ${SPRING_DATASOURCE_USERNAME}
+    networks:
+      - default
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d ${SPRING_DATASOURCE_DB} -U ${SPRING_DATASOURCE_USERNAME}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    networks:
+      - default
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: [ "CMD-SHELL", "mc ready local" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    networks:
+      - default
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli -a ${REDIS_PASSWORD} ping | grep PONG" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+    networks:
+      - monitoring
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus
+      - ${PROMETHEUS_USER_PASSWORD_FILEPATH}:/etc/prometheus_password.txt
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    networks:
+      - monitoring
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+    restart: unless-stopped
+
+
+networks:
+  default:
+    driver: bridge
+  monitoring:
+    driver: bridge
+
+
+volumes:
+  postgres-data:
+  prometheus-data:
+  minio-data:
+  redis-data:

@@ -1,0 +1,6 @@
+server:
+  servlet:
+    context-path: ""
+spring:
+  session:
+    timeout: 24h

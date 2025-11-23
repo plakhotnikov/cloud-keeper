@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- Modal create folder -->
+<div class="modal fade" id="mkdir-modal" tabindex="-1" aria-labelledby="mkdir-modal-label" aria-hidden="true">
+    <div class="modal-dialog .modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="mkdir-modal-label">Create folder</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="mkdir-form" class="needs-validation" novalidate>
+                    <div class="input-group">
+                        <label class="input-group-text" for="mk-dir-name">Name</label>
+                        <input class="form-control" type="text" id="mk-dir-name" required th:pattern="${objnamePattern}">
+                        <button type="reset" class="btn btn-light btn-clear" id="button-addon1"><i class="bi bi-backspace"></i></button>
+                        <div class="invalid-feedback p-0" id="mkdir-feedback" th:text="${objnameMessage}"></div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="mkDir(this)"
+                        data-req-path="files/create">Create
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal rename object -->
+<div class="modal fade" id="rename-modal" tabindex="-1" aria-labelledby="rename-modal-label" aria-hidden="true">
+    <div class="modal-dialog .modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="rename-modal-label">Rename</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="rename-form" class="needs-validation" novalidate>
+                    <div class="input-group">
+                        <label class="input-group-text" for="new-obj-name">New name</label>
+                        <input class="form-control" type="text" id="new-obj-name" required th:pattern="${objnamePattern}">
+                        <button type="reset" class="btn btn-light btn-clear" id="button-addon2"><i class="bi bi-backspace"></i></button>
+                        <div class="invalid-feedback p-0" id="rename-feedback" th:text="${objnameMessage}"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="renameObj(this)"
+                        data-req-path="files" data-obj-name="">Ok
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal success info -->
+<div class="modal fade" id="success-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog .modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="success-modal-label">Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success d-flex align-items-center" role="alert">
+                    <svg th:replace="~{common/icons :: success}"></svg>
+                    <div class="alert-text"> Success text</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal error info-->
+<div class="modal fade" id="error-modal" tabindex="-1" aria-labelledby="error-modal-label" aria-hidden="true">
+    <div class="modal-dialog .modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="error-modal-label">Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg th:replace="~{common/icons :: error}"></svg>
+                    <div class="alert-text"> Error text</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal confirmation -->
+<div class="modal fade" id="confirm-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog .modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirm-modal-label">Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg th:replace="~{common/icons :: error}"></svg>
+                    <div class="alert-text">Confirmation text</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="confirm-cancel-btn" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="confirm-upload-btn" class="btn btn-primary">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

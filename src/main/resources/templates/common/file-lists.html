@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="main" class="row pt-0">
+    <div th:if="${userObjects.isEmpty()}" class="alert alert-info d-flex align-items-center">
+        <svg th:replace="~{common/icons :: info}"></svg>
+        <div class="alert-text"> No files found</div>
+    </div>
+    <ul class="list-group overflow-y-auto">
+        <li class="list-group-item file d-flex" th:each="obj : ${userObjects}">
+            <div th:if="${obj.dir}" class="flex-grow-1">
+                <div class="p-0" th:if="${#strings.isEmpty(path)}">
+                    <a th:href="@{/(path=${obj.objName})}">
+                        <svg th:replace="~{common/icons :: folder}"></svg>
+                        <span th:text=" ${obj.objName}">Object name</span>
+                    </a>
+                </div>
+                <div class="p-0" th:unless="${#strings.isEmpty(path)}">
+                    <a th:href="@{/(path=${path}+'/'+${obj.objName})}">
+                        <svg th:replace="~{common/icons :: folder}"></svg>
+                        <span th:text=" ${obj.objName}">Object name</span>
+                    </a>
+                </div>
+            </div>
+            <div th:unless="${obj.dir}" class="flex-grow-1">
+                <svg th:replace="~{common/icons :: file}"></svg>
+                <span th:text=" ${obj.objName}">Object name</span>
+            </div>
+            <div class="file-act-btn">
+                <button type="submit" class="btn btn-light" th:data-path="${path}" data-req-path="files"
+                        th:data-obj-name="${obj.objName}" onclick="downloadObj(this)">
+                    <i class="bi bi-download"></i>
+                </button>
+            </div>
+            <div class="file-act-btn">
+                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                        data-bs-target="#rename-modal" th:data-obj-name="${obj.objName}">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+            </div>
+            <div class="file-act-btn">
+                <button type="button" class="btn btn-danger" th:data-obj-name="${obj.objName}"
+                        th:data-path="${path}" data-req-path="files" onclick="deleteObj(this)">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div th:fragment="search" class="files-box ps-4">
+    <div class="row pt-0">
+        <ul class="search-list-group overflow-y-auto">
+            <li class="list-group-item d-flex" th:each="breadcrumb : ${breadcrumbs}">
+                <nav th:replace="~{common/nav :: breadcrumb}"></nav>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</html>

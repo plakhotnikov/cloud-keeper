@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<nav th:fragment="top-bar" class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/}">
+                        <i class="fas fa-home"></i>Home</a>
+                </li>
+            </ul>
+            <div class="container-fluid">
+                <form th:action="@{/search}" th:method="get" class="d-flex justify-content-center">
+                    <input class="form-control me-2" type="search" name="query" id="query" required
+                           th:value="${query}"
+                           placeholder="Search for files"
+                           aria-label="Search"
+                           th:pattern="${searchPattern}"
+                           th:data-error-message="${searchMessage}">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="dropdown navbar-nav">
+                <a class="dropdown-toggle nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <i class="fas fa-user-circle"></i> <span th:text="${user.username}"></span></a>
+                <ul class="dropdown-menu dropdown-menu-lg-end ps-1" aria-labelledby="navbarDropdown">
+                    <li>
+                        <form class="dropdown-item" th:action="@{/auth/logout}" method="POST">
+                            <button type="submit" class="btn btn-link" role="link">
+                                <i class="fas fa-sign-out-alt me-1"></i>Log out
+                            </button>
+                        </form>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<nav th:fragment="breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" th:unless="${breadcrumb.getLastPart.isBlank()}"
+            th:each="part : ${breadcrumb.pathItems}">
+            <a th:if="${part.value.isBlank()}" th:href="@{/}" th:text="${part.key}">Home</a>
+            <a th:unless="${part.value.isBlank()}" th:href="@{/(path=${part.value})}" th:text="${part.key}">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page"
+            th:text="${breadcrumb.getLastPart.isBlank()} ? Home : ${breadcrumb.getLastPart}">Folder
+        </li>
+    </ol>
+</nav>
+
+<div th:fragment="left-pane" class="col-2 left-pane d-none d-sm-block d-flex flex-grow-1 flex-column flex-shrink-2">
+    <div class="row pb-0 pt-5">
+        <input type="file" class="d-none" id="file-upload" multiple required/>
+        <button type="button" class="btn btn-primary" id="upload-btn" data-req-path="files">
+            <span><i class="bi bi-arrow-bar-up"></i></span> Upload
+        </button>
+    </div>
+    <div class="row pb-0">
+        <button type="button" class="btn btn-light" id="mkdir-btn" data-bs-toggle="modal"
+                data-bs-target="#mkdir-modal">
+            <span><i class="bi bi-folder-plus"></i></span> Create folder
+        </button>
+    </div>
+    <div th:if="${path.isEmpty() && !userObjects.isEmpty()}" class="row pb-3">
+        <button type="button" class="btn btn-danger" id="rm-all-btn" data-req-path="files"
+                data-obj-name="" data-path="" onclick="deleteObj(this)">
+            <i class="bi bi-trash"></i> Remove all
+        </button>
+    </div>
+    <div class="row pb-0" id="storage-info" th:object="${storageInfo}">
+        <div class="progress p-0" style="height: 10px;">
+            <div th:class="|progress-bar *{colorStyle}|" role="progressbar" th:style="|width: *{usedPercentage}%|"
+                 th:attr="aria-valuenow=*{usedPercentage}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <span class="p-0 mt-1 text-center" th:text="| *{usedMb} MB of *{capacityMb} MB used|"> X MB of Y MB used </span>
+        <a href="https://telegra.ph/Mentorstvo-po-trudoustrojstvu-06-08" target="_blank" rel="noopener noreferrer"
+           class="btn btn-outline-info mt-2" role="button">Get more space</a>
+    </div>
+</div>
+
+</html>

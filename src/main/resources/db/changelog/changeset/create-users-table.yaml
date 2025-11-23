@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0
+      author: plakhotnikov
+      changes:
+        - createTable:
+            schemaName: public
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(30)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: unique_const_name
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: role
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+        - createSequence:
+            sequenceName: 'users_id_seq'
+            minValue: 1
+            startValue: 10000
+            schemaName: public
+            dataType: bigint
+            incrementBy: 1
+
+
+
+

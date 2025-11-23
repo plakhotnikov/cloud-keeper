@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/head :: head ('Search')}"></head>
+
+<body>
+
+<nav th:replace="~{common/nav :: top-bar}"></nav>
+<svg th:replace="~{common/icons :: description}"></svg>
+
+<div class="container-fluid">
+    <div class="row m-sm-3">
+        <div class="col-8 main-box pt-0 pb-0">
+            <div th:if="${breadcrumbs.isEmpty()}" class="alert alert-info d-flex align-items-center">
+                <svg th:replace="~{common/icons :: info}"></svg>
+                <div class="alert-text">No files found</div>
+            </div>
+            <div th:replace="~{common/file-lists :: search}"></div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/check-form-validity.js}"></script>
+</body>
+</html>

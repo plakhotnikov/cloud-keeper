@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/head :: head ('Login')}"></head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <h1 class="text-center display-3">Log in</h1>
+    </div>
+    <div th:if="${param.error}" class="row mt-3">
+        <h5 class="text-center text-danger m-0">Invalid credentials</h5>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-8 col-sm-7 col-md-6 col-lg-6 col-xl-5 col-xxl-4">
+            <div th:replace="~{common/auth-form :: auth-form (false, 'login')}"></div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <span>Do not have an account yet? <a th:href="@{/auth/register}">Create an account</a></span>
+    </div>
+</div>
+
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
