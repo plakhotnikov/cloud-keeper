@@ -5,6 +5,10 @@
 
 ![Home page view](/.github/img/home_page.png)
 
+![Search page view](/.github/img/search_page.png)
+
+![Login page view](/.github/img/login_page.png)
+
 ## Overview
 
 A cloud file storage application that provides users such features as:

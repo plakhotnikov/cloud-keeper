@@ -434,7 +434,7 @@ function showSuccessMessage(message) {
 
 function showErrorMessage(message) {
     if (message.startsWith("You have run out of free space")) {
-        message = message.replaceAll("subscription", "<a href='https://telegra.ph/Mentorstvo-po-trudoustrojstvu-06-08' target=\"_blank\" rel=\"noopener noreferrer\">subscription</a>")
+        message = message.replaceAll("subscription", "<a href='' target=\"_blank\" rel=\"noopener noreferrer\">subscription</a>")
         errorModalElement.querySelector(".alert-text").innerHTML = message;
     } else {
         errorModalElement.querySelector(".alert-text").textContent = message;
